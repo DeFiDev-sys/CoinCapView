@@ -125,11 +125,11 @@ function App() {
                 />
 
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-1 mt-6 overflow-x-auto py-2">
+                  <div className="flex items-center justify-center gap-1 mt-6 sm:gap-2 overflow-x-auto py-2 no-scrollbar">
                     <button
                       onClick={() => setCurrentPage(1)}
                       disabled={currentPage === 1}
-                      className="min-w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+                      className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
                     >
                       «
                     </button>
@@ -137,7 +137,7 @@ function App() {
                     <button
                       onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                       disabled={currentPage === 1}
-                      className="min-w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+                      className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
                     >
                       ‹
                     </button>
@@ -156,10 +156,7 @@ function App() {
 
                           if (end - start < windowSize - 1) {
                             if (start === 1) {
-                              end = Math.min(
-                                totalPages,
-                                start + windowSize - 1,
-                              );
+                              end = Math.min(totalPages, start + windowSize - 1);
                             } else {
                               start = Math.max(1, end - windowSize + 1);
                             }
@@ -167,7 +164,7 @@ function App() {
 
                           if (start > 1) {
                             pages.push(1);
-                            if (start > 2) pages.push("...");
+                            if (start > 2) pages.push('...');
                           }
 
                           for (let i = start; i <= end; i++) {
@@ -175,43 +172,38 @@ function App() {
                           }
 
                           if (end < totalPages) {
-                            if (end < totalPages - 1) pages.push("...");
+                            if (end < totalPages - 1) pages.push('...');
                             pages.push(totalPages);
                           }
                         }
                         return pages;
                       };
 
-                      return getPageNumbers().map((page, idx) =>
-                        typeof page === "number" ? (
+                      return getPageNumbers().map((page, idx) => (
+                        typeof page === 'number' ? (
                           <button
                             key={idx}
                             onClick={() => setCurrentPage(page)}
-                            className={`min-w-10 h-10 rounded-lg transition-colors ${
+                            className={`min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 rounded-lg transition-colors text-xs sm:text-sm ${
                               currentPage === page
-                                ? "bg-[#00d4aa] text-[#0f0f1a] font-semibold"
-                                : "bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa]"
+                                ? 'bg-[#00d4aa] text-[#0f0f1a] font-semibold'
+                                : 'bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa]'
                             }`}
                           >
                             {page}
                           </button>
                         ) : (
-                          <span
-                            key={idx}
-                            className="min-w-10 h-10 flex items-center justify-center text-[#6b6b80]"
-                          >
+                          <span key={idx} className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center text-[#6b6b80] text-xs sm:text-sm">
                             {page}
                           </span>
-                        ),
-                      );
+                        )
+                      ));
                     })()}
 
                     <button
-                      onClick={() =>
-                        setCurrentPage((p) => Math.min(totalPages, p + 1))
-                      }
+                      onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                       disabled={currentPage === totalPages}
-                      className="min-w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+                      className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
                     >
                       ›
                     </button>
@@ -219,7 +211,7 @@ function App() {
                     <button
                       onClick={() => setCurrentPage(totalPages)}
                       disabled={currentPage === totalPages}
-                      className="min-w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+                      className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
                     >
                       »
                     </button>
