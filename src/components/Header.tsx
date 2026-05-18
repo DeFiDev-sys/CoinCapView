@@ -1,4 +1,4 @@
-import { Search, RefreshCw } from 'lucide-react';
+import { Search, RefreshCw } from "lucide-react";
 
 interface HeaderProps {
   searchQuery: string;
@@ -7,13 +7,30 @@ interface HeaderProps {
   loading: boolean;
 }
 
-export function Header({ searchQuery, onSearchChange, onRefresh, loading }: HeaderProps) {
+export function Header({
+  searchQuery,
+  onSearchChange,
+  onRefresh,
+  loading,
+}: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 bg-[#0f0f1a]/90 backdrop-blur-md border-b border-[#2a2a45]">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
         <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-linear-to-br from-[#00d4aa] to-[#00a080] flex items-center justify-center">
-            <span className="text-lg sm:text-xl font-bold text-[#0f0f1a]">C</span>
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-linear-to-br from-[#00d4aa] to-[#00a080] flex items-center justify-between">
+            <span className="text-lg sm:text-xl font-bold text-[#0f0f1a]">
+              C
+            </span>
+            <button
+              onClick={onRefresh}
+              disabled={loading}
+              className="p-2 rounded-lg  bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:text-[#00d4aa] hover:border-[#00d4aa] transition-colors disabled:opacity-50 order-2 sm:order-3"
+              title="Refresh data"
+            >
+              <RefreshCw
+                className={`w-5 h-5 ${loading ? "animate-spin" : ""}`}
+              />
+            </button>
           </div>
           <h1 className="text-lg sm:text-xl font-bold text-white hidden xs:block">
             CoinCap<span className="text-[#00d4aa]">View</span>
@@ -32,7 +49,7 @@ export function Header({ searchQuery, onSearchChange, onRefresh, loading }: Head
             />
             {searchQuery && (
               <button
-                onClick={() => onSearchChange('')}
+                onClick={() => onSearchChange("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b6b80] hover:text-white"
               >
                 ×
@@ -44,10 +61,10 @@ export function Header({ searchQuery, onSearchChange, onRefresh, loading }: Head
         <button
           onClick={onRefresh}
           disabled={loading}
-          className="p-2 rounded-lg bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:text-[#00d4aa] hover:border-[#00d4aa] transition-colors disabled:opacity-50 order-2 sm:order-3"
+          className="p-2 rounded-lg hidden xs:block bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:text-[#00d4aa] hover:border-[#00d4aa] transition-colors disabled:opacity-50 order-2 sm:order-3"
           title="Refresh data"
         >
-          <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-5 h-5 ${loading ? "animate-spin" : ""}`} />
         </button>
       </div>
     </header>
