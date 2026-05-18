@@ -14,6 +14,7 @@ export function CoinInfo({ coinId, coinName, onBack }: CoinInfoProps) {
   const [coinInfo, setCoinInfo] = useState<CoinInfoType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const isInIframe = window.self !== window.top;
 
   useEffect(() => {
     async function loadCoinInfo() {
@@ -44,7 +45,7 @@ export function CoinInfo({ coinId, coinName, onBack }: CoinInfoProps) {
       <div className="text-center py-12">
         <p className="text-[#ff6b6b] mb-4">{error}</p>
         <button
-          onClick={() => window.location.reload()}
+          onClick={() => { if (!isInIframe) window.location.reload(); }}
           className="px-4 py-2 bg-[#00d4aa] text-[#0f0f1a] rounded-lg font-semibold"
         >
           Retry

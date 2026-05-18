@@ -30,6 +30,8 @@ function App() {
     }
   }, [assets]);
 
+  const isInIframe = window.self !== window.top;
+
   const filteredAssets = useMemo(() => {
     if (!searchQuery.trim()) return assets;
     const query = searchQuery.toLowerCase();
@@ -56,20 +58,20 @@ function App() {
     setSearchQuery('');
     setCurrentPage(1);
     setSelectedCoinId(null);
-    window.location.hash = '';
+    if (!isInIframe) window.location.hash = '';
     await refetch();
   };
 
   const handleCoinClick = (coinId: number, coinName: string) => {
     setSelectedCoinId(coinId);
     setSelectedCoinName(coinName);
-    window.location.hash = `/coin/${coinId}`;
+    if (!isInIframe) window.location.hash = `/coin/${coinId}`;
   };
 
   const handleBack = () => {
     setSelectedCoinId(null);
     setSelectedCoinName('');
-    window.location.hash = '';
+    if (!isInIframe) window.location.hash = '';
   };
 
   return (
