@@ -17,24 +17,24 @@ export function Header({
     <header className="sticky top-0 z-50 bg-[#0f0f1a]/90 backdrop-blur-md border-b border-[#2a2a45]">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
         <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
-          <div className="w-full h-9 sm:w-10 sm:h-10 rounded-xl bg-linear-to-br from-[#00d4aa] to-[#00a080] flex items-center justify-between">
-            <span className="text-lg sm:text-xl font-bold text-[#0f0f1a]">
-              C
-            </span>
-            <button
-              onClick={onRefresh}
-              disabled={loading}
-              className="p-2 rounded-lg  bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:text-[#00d4aa] hover:border-[#00d4aa] transition-colors disabled:opacity-50 order-2 sm:order-3"
-              title="Refresh data"
-            >
-              <RefreshCw
-                className={`w-5 h-5 ${loading ? "animate-spin" : ""}`}
-              />
-            </button>
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-linear-to-br from-[#00d4aa] to-[#00a080] flex items-center justify-center">
+              <span className="text-lg sm:text-xl font-bold text-[#0f0f1a]">
+                C
+              </span>
+            </div>
+            <h1 className="text-lg sm:text-xl font-bold text-white hidden xs:block">
+              CoinCap<span className="text-[#00d4aa]">View</span>
+            </h1>
           </div>
-          <h1 className="text-lg sm:text-xl font-bold text-white hidden xs:block">
-            CoinCap<span className="text-[#00d4aa]">View</span>
-          </h1>
+          <button
+            onClick={onRefresh}
+            disabled={loading}
+            className="sm:hidden p-2 rounded-lg bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:text-[#00d4aa] hover:border-[#00d4aa] transition-colors disabled:opacity-50"
+            title="Refresh data"
+          >
+            <RefreshCw className={`w-5 h-5 ${loading ? "animate-spin" : ""}`} />
+          </button>
         </div>
 
         <div className="flex-1 w-full sm:max-w-md order-3 sm:order-2">
@@ -61,7 +61,7 @@ export function Header({
         <button
           onClick={onRefresh}
           disabled={loading}
-          className="p-2 rounded-lg hidden xs:block bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:text-[#00d4aa] hover:border-[#00d4aa] transition-colors disabled:opacity-50 order-2 sm:order-3"
+          className="hidden sm:flex p-2 rounded-lg bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:text-[#00d4aa] hover:border-[#00d4aa] transition-colors disabled:opacity-50 order-2 sm:order-3"
           title="Refresh data"
         >
           <RefreshCw className={`w-5 h-5 ${loading ? "animate-spin" : ""}`} />
