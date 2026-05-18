@@ -125,11 +125,11 @@ function App() {
                 />
 
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-1 mt-6 sm:gap-2 overflow-x-auto py-2 no-scrollbar">
+                  <div className="flex items-center justify-center gap-1 sm:gap-2 mt-6 overflow-x-auto py-2 no-scrollbar">
                     <button
                       onClick={() => setCurrentPage(1)}
                       disabled={currentPage === 1}
-                      className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
+                      className="hidden sm:flex min-w-[2.5rem] h-10 items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
                     >
                       «
                     </button>
@@ -137,7 +137,7 @@ function App() {
                     <button
                       onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                       disabled={currentPage === 1}
-                      className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
+                      className="hidden sm:flex min-w-[2.5rem] h-10 items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
                     >
                       ‹
                     </button>
@@ -203,7 +203,7 @@ function App() {
                     <button
                       onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                       disabled={currentPage === totalPages}
-                      className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
+                      className="hidden sm:flex min-w-[2.5rem] h-10 items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
                     >
                       ›
                     </button>
@@ -211,7 +211,7 @@ function App() {
                     <button
                       onClick={() => setCurrentPage(totalPages)}
                       disabled={currentPage === totalPages}
-                      className="min-w-[2rem] sm:min-w-[2.5rem] h-8 sm:h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm"
+                      className="hidden sm:flex min-w-[2.5rem] h-10 items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
                     >
                       »
                     </button>
