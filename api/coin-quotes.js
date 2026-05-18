@@ -50,7 +50,7 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: 'Coin not found' });
     }
 
-    const data =res.json({
+    const result = res.json({
       rank: coin.cmc_rank,
       marketCap: coin.quote?.USD?.market_cap || 0,
       volume24h: coin.quote?.USD?.volume_24h || 0,
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
       totalSupply: coin.total_supply || 0,
       maxSupply: coin.max_supply || null,
     });
-    console.log(data)
+    return result;
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
