@@ -17,7 +17,7 @@ export function Header({
     <header className="sticky top-0 z-50 bg-[#0f0f1a]/90 backdrop-blur-md border-b border-[#2a2a45]">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
         <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-linear-to-br from-[#00d4aa] to-[#00a080] flex items-center justify-between">
+          <div className="w-full h-9 sm:w-10 sm:h-10 rounded-xl bg-linear-to-br from-[#00d4aa] to-[#00a080] flex items-center justify-between">
             <span className="text-lg sm:text-xl font-bold text-[#0f0f1a]">
               C
             </span>
