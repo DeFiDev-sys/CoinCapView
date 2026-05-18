@@ -1,8 +1,7 @@
 import type { CryptoAsset } from '../types';
-import { formatCurrency, formatPercentage, formatCompactNumber } from '../utils/formatters';
-import { Sparkline } from './Sparkline';
+import { formatCurrency, formatPercentage } from '../utils/formatters';
 
-interface CryptoRowProps {
+interface CryptoRowTabletProps {
   coin: CryptoAsset;
   onCoinClick?: (coinId: number, coinName: string) => void;
 }
@@ -16,49 +15,41 @@ function getPlaceholderColor(symbol: string): string {
   return colors[symbol] || '6b6b80';
 }
 
-export function CryptoRow({ coin, onCoinClick }: CryptoRowProps) {
+export function CryptoRowTablet({ coin, onCoinClick }: CryptoRowTabletProps) {
   const isPositive24h = coin.priceChange24h >= 0;
   const isPositive7d = coin.priceChange7d >= 0;
   const placeholderColor = getPlaceholderColor(coin.symbol);
 
   return (
     <div
-      className="flex items-center gap-2 lg:gap-4 p-3 lg:p-4 border-b border-[#2a2a45] hover:bg-[#252540]/50 transition-colors group cursor-pointer"
+      className="flex items-center gap-2 md:gap-3 p-3 border-b border-[#2a2a45] hover:bg-[#252540]/50 transition-colors cursor-pointer"
       onClick={() => onCoinClick?.(coin.id, coin.name)}
     >
-      <span className="w-6 lg:w-8 text-center text-[#6b6b80] font-mono text-xs lg:text-sm">{coin.rank}</span>
+      <span className="w-6 text-center text-[#6b6b80] font-mono text-xs">{coin.rank}</span>
 
       <div className="flex items-center gap-2 flex-1 min-w-0">
         <img
           src={`https://cryptoicons.org/api/icon/${coin.symbol.toLowerCase()}/32`}
           alt={coin.name}
-          className="w-7 h-7 lg:w-8 lg:h-8 rounded-full"
+          className="w-7 h-7 rounded-full"
           onError={(e) => {
             (e.target as HTMLImageElement).src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect fill="%23${placeholderColor}" width="32" height="32" rx="16"/><text x="16" y="20" text-anchor="middle" fill="white" font-size="10" font-family="sans-serif">${coin.symbol[0]}</text></svg>`;
           }}
         />
         <div className="min-w-0">
-          <div className="font-semibold text-white text-sm lg:text-base truncate">{coin.name}</div>
-          <div className="text-xs lg:text-sm text-[#6b6b80]">{coin.symbol}</div>
+          <div className="font-semibold text-white text-sm truncate">{coin.name}</div>
+          <div className="text-xs text-[#6b6b80]">{coin.symbol}</div>
         </div>
       </div>
 
-      <div className="font-mono text-white w-20 lg:w-28 text-right text-sm lg:text-base">{formatCurrency(coin.price)}</div>
+      <div className="font-mono text-white text-sm text-right w-20">{formatCurrency(coin.price)}</div>
 
-      <div className={`font-mono text-xs lg:text-sm w-16 lg:w-20 text-right ${isPositive24h ? 'text-[#00d4aa]' : 'text-[#ff6b6b]'}`}>
+      <div className={`font-mono text-xs text-right w-16 ${isPositive24h ? 'text-[#00d4aa]' : 'text-[#ff6b6b]'}`}>
         {formatPercentage(coin.priceChange24h)}
       </div>
 
-      <div className={`font-mono text-xs lg:text-sm w-16 lg:w-20 text-right ${isPositive7d ? 'text-[#00d4aa]' : 'text-[#ff6b6b]'}`}>
+      <div className={`font-mono text-xs text-right w-16 ${isPositive7d ? 'text-[#00d4aa]' : 'text-[#ff6b6b]'}`}>
         {formatPercentage(coin.priceChange7d)}
-      </div>
-
-      <div className="font-mono text-xs lg:text-sm text-[#a0a0b8] w-24 lg:w-28 text-right hidden xl:block">
-        {formatCompactNumber(coin.marketCap)}
-      </div>
-
-      <div className="w-20 lg:w-24 h-6 lg:h-8 hidden lg:block">
-        <Sparkline priceChange7d={coin.priceChange7d} price={coin.price} />
       </div>
     </div>
   );

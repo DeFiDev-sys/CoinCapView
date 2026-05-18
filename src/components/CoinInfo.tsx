@@ -60,29 +60,30 @@ export function CoinInfo({ coinId, coinName, onBack }: CoinInfoProps) {
     <div className="max-w-4xl mx-auto">
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-[#a0a0b8] hover:text-[#00d4aa] transition-colors mb-6"
+        className="flex items-center gap-2 text-[#a0a0b8] hover:text-[#00d4aa] transition-colors mb-4 sm:mb-6 text-sm sm:text-base"
       >
-        <ArrowLeft className="w-5 h-5" />
-        Back to Dashboard
+        <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+        <span className="hidden xs:inline">Back to Dashboard</span>
+        <span className="xs:hidden">Back</span>
       </button>
 
-      <div className="bg-[#1a1a2e] border border-[#2a2a45] rounded-xl p-6 mb-6">
-        <div className="flex items-center gap-4 mb-6">
+      <div className="bg-[#1a1a2e] border border-[#2a2a45] rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
           <img
             src={`https://cryptoicons.org/api/icon/${coinInfo.symbol.toLowerCase()}/64`}
             alt={coinInfo.name}
-            className="w-16 h-16 rounded-full"
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full"
             onError={(e) => {
               (e.target as HTMLImageElement).src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect fill="%236b6b80" width="64" height="64" rx="32"/><text x="32" y="40" text-anchor="middle" fill="white" font-size="24" font-family="sans-serif">${coinInfo.symbol[0]}</text></svg>`;
             }}
           />
           <div>
-            <h1 className="text-3xl font-bold text-white">{coinInfo.name}</h1>
-            <p className="text-[#a0a0b8]">{coinInfo.symbol} • Rank #{coinInfo.rank}</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">{coinInfo.name}</h1>
+            <p className="text-sm sm:text-base text-[#a0a0b8]">{coinInfo.symbol} • Rank #{coinInfo.rank}</p>
           </div>
         </div>
 
-        <div className="flex gap-4 flex-wrap mb-6">
+        <div className="flex gap-2 sm:gap-4 flex-wrap mb-4 sm:mb-6">
           {coinInfo.website && (
             <a
               href={coinInfo.website}
@@ -109,9 +110,9 @@ export function CoinInfo({ coinId, coinName, onBack }: CoinInfoProps) {
           )}
         </div>
 
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold text-white mb-3">Description</h2>
-          <p className="text-[#a0a0b8] leading-relaxed whitespace-pre-line">
+        <div className="mb-4 sm:mb-6">
+          <h2 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Description</h2>
+          <p className="text-[#a0a0b8] leading-relaxed whitespace-pre-line text-sm sm:text-base">
             {coinInfo.description}
           </p>
         </div>
@@ -130,7 +131,7 @@ export function CoinInfo({ coinId, coinName, onBack }: CoinInfoProps) {
         )}
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4">
         <StatBox
           icon={<BarChart3 className="w-5 h-5" />}
           label="Market Cap"
@@ -155,9 +156,9 @@ export function CoinInfo({ coinId, coinName, onBack }: CoinInfoProps) {
         />
       </div>
 
-      <div className="bg-[#1a1a2e] border border-[#2a2a45] rounded-xl p-6 mt-6">
-        <h2 className="text-lg font-semibold text-white mb-4">Supply Information</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="bg-[#1a1a2e] border border-[#2a2a45] rounded-xl p-4 sm:p-6 mt-4 sm:mt-6">
+        <h2 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">Supply Information</h2>
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
           <SupplyInfo label="Circulating Supply" value={formatCompactNumber(coinInfo.circulatingSupply)} />
           <SupplyInfo label="Total Supply" value={formatCompactNumber(coinInfo.totalSupply)} />
           <SupplyInfo label="Max Supply" value={coinInfo.maxSupply ? formatCompactNumber(coinInfo.maxSupply) : '∞'} />
@@ -173,12 +174,12 @@ export function CoinInfo({ coinId, coinName, onBack }: CoinInfoProps) {
 
 function StatBox({ icon, label, value, positive }: { icon: React.ReactNode; label: string; value: string; positive?: boolean }) {
   return (
-    <div className="bg-[#1a1a2e] border border-[#2a2a45] rounded-xl p-4">
-      <div className="flex items-center gap-2 text-[#6b6b80] mb-2">
-        {icon}
-        <span className="text-sm">{label}</span>
+    <div className="bg-[#1a1a2e] border border-[#2a2a45] rounded-xl p-3 sm:p-4">
+      <div className="flex items-center gap-1 sm:gap-2 text-[#6b6b80] mb-1 sm:mb-2">
+        <span className="scale-75 sm:scale-100">{icon}</span>
+        <span className="text-xs sm:text-sm">{label}</span>
       </div>
-      <div className={`text-xl font-bold font-mono ${positive === undefined ? 'text-white' : positive ? 'text-[#00d4aa]' : 'text-[#ff6b6b]'}`}>
+      <div className={`text-base sm:text-xl font-bold font-mono ${positive === undefined ? 'text-white' : positive ? 'text-[#00d4aa]' : 'text-[#ff6b6b]'}`}>
         {value}
       </div>
     </div>

@@ -1,31 +1,32 @@
-import { useState, useMemo, useEffect } from 'react';
-import { Header } from './components/Header';
-import { StatsGrid } from './components/StatCard';
-import { CryptoTable } from './components/CryptoTable';
-import { CoinInfo } from './components/CoinInfo';
-import { LoadingState } from './components/LoadingState';
-import { ErrorState } from './components/ErrorState';
-import { useCryptoData } from './hooks/useCryptoData';
-import { formatCompactNumber } from './utils/formatters';
+import { useState, useMemo, useEffect } from "react";
+import { Header } from "./components/Header";
+import { StatsGrid } from "./components/StatCard";
+import { CryptoTable } from "./components/CryptoTable";
+import { CoinInfo } from "./components/CoinInfo";
+import { LoadingState } from "./components/LoadingState";
+import { ErrorState } from "./components/ErrorState";
+import { useCryptoData } from "./hooks/useCryptoData";
+import { formatCompactNumber } from "./utils/formatters";
 
 const ITEMS_PER_PAGE = 10;
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCoinId, setSelectedCoinId] = useState<number | null>(null);
-  const [selectedCoinName, setSelectedCoinName] = useState<string>('');
-  const { assets, globalMetrics, loading, error, refetch } = useCryptoData(1000);
+  const [selectedCoinName, setSelectedCoinName] = useState<string>("");
+  const { assets, globalMetrics, loading, error, refetch } =
+    useCryptoData(1000);
 
   // Handle URL routing for coin info
   useEffect(() => {
     const hash = window.location.hash;
-    if (hash.startsWith('#/coin/')) {
-      const coinId = parseInt(hash.replace('#/coin/', ''));
+    if (hash.startsWith("#/coin/")) {
+      const coinId = parseInt(hash.replace("#/coin/", ""));
       if (!isNaN(coinId)) {
         const coin = assets.find((c) => c.id === coinId);
         setSelectedCoinId(coinId);
-        setSelectedCoinName(coin?.name || 'Coin');
+        setSelectedCoinName(coin?.name || "Coin");
       }
     }
   }, [assets]);
@@ -38,7 +39,7 @@ function App() {
     return assets.filter(
       (coin) =>
         coin.name.toLowerCase().includes(query) ||
-        coin.symbol.toLowerCase().includes(query)
+        coin.symbol.toLowerCase().includes(query),
     );
   }, [assets, searchQuery]);
 
@@ -55,10 +56,10 @@ function App() {
   };
 
   const handleRefresh = async () => {
-    setSearchQuery('');
+    setSearchQuery("");
     setCurrentPage(1);
     setSelectedCoinId(null);
-    if (!isInIframe) window.location.hash = '';
+    if (!isInIframe) window.location.hash = "";
     await refetch();
   };
 
@@ -70,8 +71,8 @@ function App() {
 
   const handleBack = () => {
     setSelectedCoinId(null);
-    setSelectedCoinName('');
-    if (!isInIframe) window.location.hash = '';
+    setSelectedCoinName("");
+    if (!isInIframe) window.location.hash = "";
   };
 
   return (
@@ -83,7 +84,7 @@ function App() {
         loading={loading}
       />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
         {selectedCoinId ? (
           <CoinInfo
             coinId={selectedCoinId}
@@ -100,7 +101,9 @@ function App() {
               <>
                 {globalMetrics && (
                   <StatsGrid
-                    marketCap={formatCompactNumber(globalMetrics.totalMarketCap)}
+                    marketCap={formatCompactNumber(
+                      globalMetrics.totalMarketCap,
+                    )}
                     volume={formatCompactNumber(globalMetrics.totalVolume24h)}
                     btcDom={globalMetrics.btcDominance.toFixed(1)}
                     ethDom={globalMetrics.ethDominance.toFixed(1)}
@@ -111,33 +114,34 @@ function App() {
 
                 {searchQuery && (
                   <div className="mb-4 text-[#a0a0b8]">
-                    Showing {filteredAssets.length} result{filteredAssets.length !== 1 ? 's' : ''} for "{searchQuery}"
+                    Showing {filteredAssets.length} result
+                    {filteredAssets.length !== 1 ? "s" : ""} for "{searchQuery}"
                   </div>
                 )}
 
-                <CryptoTable coins={paginatedAssets} onCoinClick={handleCoinClick} />
+                <CryptoTable
+                  coins={paginatedAssets}
+                  onCoinClick={handleCoinClick}
+                />
 
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-1 mt-6">
-                    {/* First page << */}
+                  <div className="flex items-center justify-center gap-1 mt-6 overflow-x-auto py-2">
                     <button
                       onClick={() => setCurrentPage(1)}
                       disabled={currentPage === 1}
-                      className="w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+                      className="min-w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
                     >
                       «
                     </button>
 
-                    {/* Previous page < */}
                     <button
                       onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                       disabled={currentPage === 1}
-                      className="w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+                      className="min-w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
                     >
                       ‹
                     </button>
 
-                    {/* Page numbers with sliding window */}
                     {(() => {
                       const getPageNumbers = () => {
                         const pages: (number | string)[] = [];
@@ -152,7 +156,10 @@ function App() {
 
                           if (end - start < windowSize - 1) {
                             if (start === 1) {
-                              end = Math.min(totalPages, start + windowSize - 1);
+                              end = Math.min(
+                                totalPages,
+                                start + windowSize - 1,
+                              );
                             } else {
                               start = Math.max(1, end - windowSize + 1);
                             }
@@ -160,7 +167,7 @@ function App() {
 
                           if (start > 1) {
                             pages.push(1);
-                            if (start > 2) pages.push('...');
+                            if (start > 2) pages.push("...");
                           }
 
                           for (let i = start; i <= end; i++) {
@@ -168,48 +175,51 @@ function App() {
                           }
 
                           if (end < totalPages) {
-                            if (end < totalPages - 1) pages.push('...');
+                            if (end < totalPages - 1) pages.push("...");
                             pages.push(totalPages);
                           }
                         }
                         return pages;
                       };
 
-                      return getPageNumbers().map((page, idx) => (
-                        typeof page === 'number' ? (
+                      return getPageNumbers().map((page, idx) =>
+                        typeof page === "number" ? (
                           <button
                             key={idx}
                             onClick={() => setCurrentPage(page)}
-                            className={`w-10 h-10 rounded-lg transition-colors ${
+                            className={`min-w-10 h-10 rounded-lg transition-colors ${
                               currentPage === page
-                                ? 'bg-[#00d4aa] text-[#0f0f1a] font-semibold'
-                                : 'bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa]'
+                                ? "bg-[#00d4aa] text-[#0f0f1a] font-semibold"
+                                : "bg-[#1a1a2e] border border-[#2a2a45] text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa]"
                             }`}
                           >
                             {page}
                           </button>
                         ) : (
-                          <span key={idx} className="w-10 h-10 flex items-center justify-center text-[#6b6b80]">
+                          <span
+                            key={idx}
+                            className="min-w-10 h-10 flex items-center justify-center text-[#6b6b80]"
+                          >
                             {page}
                           </span>
-                        )
-                      ));
+                        ),
+                      );
                     })()}
 
-                    {/* Next page > */}
                     <button
-                      onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                      onClick={() =>
+                        setCurrentPage((p) => Math.min(totalPages, p + 1))
+                      }
                       disabled={currentPage === totalPages}
-                      className="w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+                      className="min-w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
                     >
                       ›
                     </button>
 
-                    {/* Last page >> */}
                     <button
                       onClick={() => setCurrentPage(totalPages)}
                       disabled={currentPage === totalPages}
-                      className="w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+                      className="min-w-10 h-10 flex items-center justify-center bg-[#1a1a2e] border border-[#2a2a45] rounded-lg text-[#a0a0b8] hover:border-[#00d4aa] hover:text-[#00d4aa] disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
                     >
                       »
                     </button>
@@ -218,7 +228,8 @@ function App() {
 
                 {totalPages > 1 && (
                   <div className="text-center mt-4 text-[#6b6b80] text-sm">
-                    Page {currentPage} of {totalPages} ({filteredAssets.length} coins)
+                    Page {currentPage} of {totalPages} ({filteredAssets.length}{" "}
+                    coins)
                   </div>
                 )}
               </>
